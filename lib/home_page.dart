@@ -1,52 +1,33 @@
-import 'package:bloc_learn/bloc/counter_bloc.dart';
+import 'package:bloc_learn/features/Todo/presentation/screens/todo_scren.dart';
+import 'package:bloc_learn/features/counter/presentation/screens/counter_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});
+import 'features/weather/presentation/screens/weather_screen.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
-      ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.push(context, CounterScreen.route()),
+              child: const Text('Counter Feature'),
             ),
-            BlocBuilder<CounterBloc, int>(
-              builder: (context, state) {
-                return Text(
-                  state.toString(),
-                  style: Theme.of(context).textTheme.headlineMedium,
-                );
-              },
+            ElevatedButton(
+              onPressed: () => Navigator.push(context, TodoScreen.route()),
+              child: const Text('Todo Feature'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.push(context, WeatherScreen.route()),
+              child: const Text('Weather Feature'),
             ),
           ],
         ),
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          FloatingActionButton(
-            onPressed: () =>
-                context.read<CounterBloc>().add(CounterDecremented()),
-            tooltip: 'Decrement',
-            child: const Icon(Icons.minimize),
-          ),
-          FloatingActionButton(
-            onPressed: () =>
-                context.read<CounterBloc>().add(CounterIncremented()),
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-        ],
       ),
     );
   }

@@ -12,6 +12,7 @@ class CounterBloc extends Bloc<CounterEvent, int> {
     });
     on<CounterDecremented>((event, emit) {
       emit(state - 1);
+      print('Decrement emitted');
     });
   }
 }
